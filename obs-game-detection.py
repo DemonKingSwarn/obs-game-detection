@@ -57,7 +57,7 @@ def detect():
     ps_reader = csv.reader(ps_lines)
 
     for row in ps_reader:
-        if len(row) > 1 and row[1] in aliases:
+        if row[1] in aliases:
             match = aliases[row[1]]
             obs.script_log(obs.LOG_INFO, f"Process match found: {match}")
             return match
