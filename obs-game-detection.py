@@ -52,12 +52,12 @@ def load_aliases(lines):
 
 def detect():
     # pull process list
-    ps_output = subprocess.run(['ps', '-eo', 'pid,cmd', '--no-headers'], capture_output=True, text=True)
+    ps_output = subprocess.run(['ps', '-eo', 'cmd,pid', '-L'], capture_output=True, text=True)
     ps_lines = ps_output.stdout.strip().split('\n')
     ps_reader = csv.reader(ps_lines)
 
     for row in ps_reader:
-        if row[1] in aliases:
+        if len(row) > 1 and row[1] in aliases:
             match = aliases[row[1]]
             obs.script_log(obs.LOG_INFO, f"Process match found: {match}")
             return match
